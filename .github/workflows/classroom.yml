@@ -19,6 +19,9 @@ jobs:
       with:
         dotnet-version: 9.0.x  
         
+    - name: workload restore
+      run: dotnet workload restore
+
     - name: run tests
       id: run-tests
       uses: classroom-resources/autograding-command-grader@v1
