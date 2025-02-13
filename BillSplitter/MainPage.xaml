@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="BillSplitter.MainPage"
+             Title="{Binding PageTitle}">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="30,0"
+                             Spacing="25">
+            <Label Text="Got friends? Got bill-splitting problems? No problem." />
+            <Button Text="Split a New Bill"
+                    Command="{Binding GoSplitBillCommand}" />
+            <CollectionView ItemsSource="{Binding PastBills}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <VerticalStackLayout>
+                            <Label Text="{Binding BillAmount, StringFormat='Total Bill Amount: {0:c}', FallbackValue='Fallback Value'}" />
+                            <Label Text="{Binding summary}" />
+                        </VerticalStackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>

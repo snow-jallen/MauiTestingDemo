@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:syncfusion="http://schemas.syncfusion.com/maui/toolkit"
+             xmlns:editors="clr-namespace:Syncfusion.Maui.Toolkit.NumericEntry;assembly=Syncfusion.Maui.Toolkit"
+             x:Class="BillSplitter.SplitBill"
+             Title="Split a Bill">
+    <VerticalStackLayout Padding="20">
+        <Grid ColumnDefinitions="*,Auto">
+            <Label Text="Total bill amount:"
+                   FontSize="Large" />
+            <Label Text="{Binding RemainingAmount, StringFormat='({0:C} un-split)'}"
+                   Grid.Column="1"
+                   VerticalOptions="Center"
+                   FontSize="Small" />
+        </Grid>
+        <editors:SfNumericEntry Value="{Binding TotalBillAmount}"
+                                MaximumWidthRequest="250"
+                                CustomFormat="C" />
+        <Label Text="Tip Percent"
+               FontSize="Large"/>
+        <editors:SfNumericEntry Value="{Binding TipPercent}"
+                                MaximumWidthRequest="250"
+                                CustomFormat="p3" />
+        <Label Text="Calculated Tip Amount"
+               FontSize="Large"/>
+        <Label Text="{Binding TipAmount, StringFormat='{0:c2}'}"
+               FontSize="Medium"
+               HorizontalOptions="Center"/>
+        <Label Text="People in the group"
+               FontSize="Large"
+               Margin="5,15,5,0" />
+        <Border StrokeThickness="2"
+                Margin="5,0,5,5">
+            <VerticalStackLayout>
+            <Grid ColumnDefinitions="2*,*,*,*"
+                  Margin="5,5,5,0">
+                <Label Text="Person Name" />
+                <Label Text="Amount"
+                       Grid.Column="1" />
+                <Label Text="Tip"
+                       Grid.Column="2" />
+                <Label Text="Due"
+                       Grid.Column="3" />
+            </Grid>
+            <CollectionView ItemsSource="{Binding People}"
+                            Margin="5">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid ColumnDefinitions="2*,*,*,*">
+                            <Entry Text="{Binding Name}"
+                                   Placeholder="Name"
+                                   Grid.Column="0"
+                                   MinimumWidthRequest="275" />
+                            <editors:SfNumericEntry Value="{Binding Amount}"
+                                                    CustomFormat="C"
+                                                    Grid.Column="1"
+                                                    MinimumWidthRequest="150" />
+                            <Label Text="{Binding MyPartOfTip, StringFormat='{0:c}'}"
+                                   VerticalOptions="Center"
+                                   Margin="5"
+                                   Grid.Column="2" />
+                            <Label Text="{Binding MyTotalPortion, StringFormat='{0:c}'}"
+                                   VerticalOptions="Center"
+                                   TextColor="Red"
+                                   FontAttributes="Bold"
+                                   FontSize="Medium"
+                                   Margin="5"
+                                   Grid.Column="3" />
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+            </VerticalStackLayout>
+        </Border>
+        <Button Command="{Binding AddPersonCommand}"
+                HorizontalOptions="End"
+                Margin="5"
+                Padding="40,0"
+                Text="Add Person to Bill" />
+
+        <Button Text="Save Bill &amp; Go Back"
+                HorizontalOptions="Center"
+                Padding="40,10"
+                FontSize="Large"
+                Margin="10"
+                Command="{Binding SaveBillCommand}" />
+    </VerticalStackLayout>
+</ContentPage>
